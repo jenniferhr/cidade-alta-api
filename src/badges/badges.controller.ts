@@ -6,8 +6,8 @@ export class BadgesController {
   constructor(private badgeService: BadgesService) {}
 
   @Get('/')
-  async getAllBadges() {
-    return await this.badgeService.findAllBadges();
+  async getAllBadges(@Query('name') name?: string) {
+    return await this.badgeService.findAllBadges(name);
   }
 
   @Post('/redeem')
