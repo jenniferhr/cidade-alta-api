@@ -8,8 +8,12 @@ export class BadgesController {
   constructor(private badgeService: BadgesService) {}
 
   @Get('/')
-  async getAllBadges(@Query('name') name?: string): Promise<Badge[]> {
-    return await this.badgeService.findAllBadges(name);
+  async getPaginatedBadges(
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 5,
+    @Query('name') name?: string,
+  ): Promise<Badge[]> {
+    return await this.badgeService.findPaginatedBadges(page, limit, name);
   }
 
   @Post('/redeem')

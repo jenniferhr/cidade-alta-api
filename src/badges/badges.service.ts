@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { Badge } from 'src/entities/badge.entity';
 import { User } from 'src/entities/user.entity';
-import { DataSource, Like } from 'typeorm';
+import { DataSource } from 'typeorm';
 
 @Injectable()
 export class BadgesService {
@@ -19,16 +19,19 @@ export class BadgesService {
     this.userRepository = this.dataSource.getRepository(User);
   }
 
-  async findAllBadges(name?: string): Promise<Badge[]> {
+  async findPaginatedBadges(
+    page: number,
+    limit: number,
+    name?: string,
+  ): Promise<Badge[]> {
+    const skip = (page - 1) * limit;
+    const queryBuilder = this.badgeRepository.createQueryBuilder('badge');
+
     if (name) {
-      return await this.badgeRepository.find({
-        where: {
-          name: Like(`%${name}%`),
-        },
-      });
-    } else {
-      return await this.badgeRepository.find();
+      queryBuilder.where('badge.name LIKE :name', { name: `%${name}%` });
     }
+
+    return queryBuilder.skip(skip).take(limit).getMany();
   }
 
   async redeemBadge(userId: number, slug: string): Promise<User> {
