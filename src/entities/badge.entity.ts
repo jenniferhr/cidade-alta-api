@@ -13,7 +13,7 @@ export class Badge {
   name: string;
 
   @Column()
-  description: string;
+  image: string;
 
   @OneToMany(() => UserBadge, (userBadge) => userBadge.badge)
   users: UserBadge[];
