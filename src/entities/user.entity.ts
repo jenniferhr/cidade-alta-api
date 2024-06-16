@@ -12,10 +12,10 @@ export class User {
   @PrimaryGeneratedColumn({ name: 'id' })
   id: number;
 
-  @Column({ unique: true, nullable: false })
+  @Column()
   username: string;
 
-  @Column({ nullable: false })
+  @Column()
   password: string;
 
   @ManyToMany(() => Badge, { cascade: true })
