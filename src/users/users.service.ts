@@ -5,6 +5,7 @@ import {
   InternalServerErrorException,
   Logger,
 } from '@nestjs/common';
+import { Badge } from 'src/entities/badge.entity';
 import { User } from 'src/entities/user.entity';
 import { DataSource } from 'typeorm';
 
@@ -37,7 +38,7 @@ export class UsersService {
     }
   }
 
-  async findUserBadges(userId: number) {
+  async findUserBadges(userId: number): Promise<Badge[]> {
     const user = await this.userRepository.findOne({
       where: { id: userId },
       relations: ['badges'],

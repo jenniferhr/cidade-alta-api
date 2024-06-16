@@ -31,7 +31,7 @@ export class BadgesService {
     }
   }
 
-  async redeemBadge(userId: number, slug: string) {
+  async redeemBadge(userId: number, slug: string): Promise<User> {
     const user = await this.userRepository.findOne({
       where: { id: userId },
       relations: ['badges'],
