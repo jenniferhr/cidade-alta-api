@@ -1,5 +1,4 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { UserBadge } from './user-badge.entity';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('badges')
 export class Badge {
@@ -14,7 +13,4 @@ export class Badge {
 
   @Column()
   image: string;
-
-  @OneToMany(() => UserBadge, (userBadge) => userBadge.badge)
-  users: UserBadge[];
 }

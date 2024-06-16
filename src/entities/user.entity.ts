@@ -1,17 +1,24 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { UserBadge } from './user-badge.entity';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Badge } from './badge.entity';
 
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn({ name: 'id' })
   id: number;
 
-  @Column()
+  @Column({ unique: true, nullable: false })
   username: string;
 
-  @Column()
+  @Column({ nullable: false })
   password: string;
 
-  @OneToMany(() => UserBadge, (userBadge) => userBadge.user)
-  badges: UserBadge[];
+  @ManyToMany(() => Badge, { cascade: true })
+  @JoinTable()
+  badges: Badge[];
 }
