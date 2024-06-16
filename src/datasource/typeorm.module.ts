@@ -17,9 +17,8 @@ import { Global, Module } from '@nestjs/common';
             username: 'ca_db',
             password: '123',
             database: 'cidade_alta_db',
+            entities: [`${__dirname}/../**/**.entity{.ts,.js}`],
             synchronize: true,
-            entities: [__dirname + '/**/*.entity{.ts,.js}'],
-            migrations: [__dirname + '/../migrations/*.{ts,js}'],
           });
           await dataSource.initialize();
           console.log('Database connected successfully');

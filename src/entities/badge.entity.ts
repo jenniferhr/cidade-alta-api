@@ -15,6 +15,6 @@ export class Badge {
   @Column()
   description: string;
 
-  @OneToMany(() => UserBadge, (userBadge) => userBadge.badgeId)
+  @OneToMany(() => UserBadge, (userBadge) => userBadge.badge)
   users: UserBadge[];
 }

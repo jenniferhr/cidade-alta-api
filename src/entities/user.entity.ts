@@ -12,6 +12,6 @@ export class User {
   @Column()
   password: string;
 
-  @OneToMany(() => UserBadge, (userBadge) => userBadge.userId)
+  @OneToMany(() => UserBadge, (userBadge) => userBadge.user)
   badges: UserBadge[];
 }

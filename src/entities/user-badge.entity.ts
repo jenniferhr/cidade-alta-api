@@ -18,9 +18,9 @@ export class UserBadge {
 
   @ManyToOne(() => User, (user) => user.badges)
   @JoinColumn({ name: 'user_id' })
-  userId: User;
+  user: User;
 
   @ManyToOne(() => Badge, (badge) => badge.users)
   @JoinColumn({ name: 'badge_id' })
-  badgeId: Badge;
+  badge: Badge;
 }
