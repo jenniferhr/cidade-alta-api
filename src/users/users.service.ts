@@ -36,4 +36,13 @@ export class UsersService {
       );
     }
   }
+
+  async findUserBadges(userId: number) {
+    const user = await this.userRepository.findOne({
+      where: { id: userId },
+      relations: ['badges'],
+    });
+
+    return user.badges;
+  }
 }
