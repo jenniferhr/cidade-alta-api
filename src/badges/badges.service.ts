@@ -6,6 +6,7 @@ import {
 } from '@nestjs/common';
 import { Badge } from 'src/entities/badge.entity';
 import { User } from 'src/entities/user.entity';
+import { PaginationResult } from 'src/utils/pagination.util';
 import { DataSource } from 'typeorm';
 
 @Injectable()
@@ -23,7 +24,7 @@ export class BadgesService {
     page: number,
     limit: number,
     name?: string,
-  ): Promise<Badge[]> {
+  ): Promise<PaginationResult<Badge>> {
     const skip = (page - 1) * limit;
     const queryBuilder = this.badgeRepository.createQueryBuilder('badge');
 
@@ -31,7 +32,20 @@ export class BadgesService {
       queryBuilder.where('badge.name LIKE :name', { name: `%${name}%` });
     }
 
-    return queryBuilder.skip(skip).take(limit).getMany();
+    const [results, totalItems] = await queryBuilder
+      .skip(skip)
+      .take(limit)
+      .getManyAndCount();
+
+    const metadata = {
+      itemCount: results.length,
+      totalItems,
+      maxItemsPerPage: limit,
+      totalPages: Math.ceil(totalItems / limit),
+      currentPage: page,
+    };
+
+    return { results, metadata };
   }
 
   async redeemBadge(userId: number, slug: string): Promise<User> {

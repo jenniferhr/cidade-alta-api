@@ -1,7 +1,8 @@
 import { Controller, Get, Post, Query } from '@nestjs/common';
 import { BadgesService } from './badges.service';
-import { Badge } from 'src/entities/badge.entity';
 import { User } from 'src/entities/user.entity';
+import { PaginationResult } from 'src/utils/pagination.util';
+import { Badge } from 'src/entities/badge.entity';
 
 @Controller('badges')
 export class BadgesController {
@@ -12,7 +13,7 @@ export class BadgesController {
     @Query('page') page: number = 1,
     @Query('limit') limit: number = 5,
     @Query('name') name?: string,
-  ): Promise<Badge[]> {
+  ): Promise<PaginationResult<Badge>> {
     return await this.badgeService.findPaginatedBadges(page, limit, name);
   }
 
