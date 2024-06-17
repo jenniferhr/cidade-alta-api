@@ -6,17 +6,21 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Badge } from './badge.entity';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn({ name: 'id' })
+  @ApiProperty({ example: '1' })
   id: number;
 
   @Column()
-  username: string;
+  @ApiProperty({ example: 'john_doe', required: false })
+  username?: string;
 
   @Column()
-  password: string;
+  @ApiProperty({ example: 'strongpassword123', required: false })
+  password?: string;
 
   @ManyToMany(() => Badge, { cascade: true })
   @JoinTable()

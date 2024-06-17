@@ -8,11 +8,8 @@ import {
 import { Badge } from 'src/entities/badge.entity';
 import { User } from 'src/entities/user.entity';
 import { DataSource } from 'typeorm';
+import { CreateNewUserDto } from './dtos/create-new-user.dto';
 
-export interface CreateUser {
-  username: string;
-  password: string;
-}
 @Injectable()
 export class UsersService {
   private userRepository;
@@ -22,7 +19,7 @@ export class UsersService {
     this.userRepository = this.dataSource.getRepository(User);
   }
 
-  async createUser(createUser: CreateUser): Promise<User> {
+  async createUser(createUser: CreateNewUserDto): Promise<User> {
     try {
       const user = await this.userRepository.create(createUser);
       return await this.userRepository.save(user);
