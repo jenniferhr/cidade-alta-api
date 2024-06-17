@@ -1,73 +1,71 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Projeto Cidade Alta API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+API criada para desafio técnico de vaga para desenvolvedor Back-End Jr na Cidade Alta.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+![Cidade Alta API Swagger](https://i.imgur.com/J6g4BAv.png)
 
-## Description
+## Descrição
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Este projeto é uma API RESTful desenvolvida em Node.js utilizando o framework NestJS e o banco de dados MySQL. 
+### Requisitos
+- Endpoint para listar todos emblemas registrados ✅
+- Endpoint para resgatar um emblema pelo slug garantindo que o mesmo emblema não seja resgatado duas vezes pelo mesmo usuário. ✅
+- Listar todos os emblemas já resgatados por um usuário específico. ✅
+### Extra (Opcional)
+- Implementar **autenticação**
+- Documentar todos os endpoints da API, utilizando por exemplo **Swagger**.  ✅
+- Implementar **paginação** no endpoint de listagem de emblemas ✅
+- Adicionar a capacidade de filtrar os emblemas pelo **nome** no endpoint de listagem de emblemas. ✅
 
-## Installation
+## Como Rodar
 
-```bash
-$ npm install
+### Pré-requisitos
+
+- Node.js (v14.x ou superior)
+- MySQL (ou outro banco de dados compatível)
+- Git
+
+### Instalação
+
+1. Clone o repositório:
 ```
-
-## Running the app
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+git clone https://github.com/seu-usuario/seu-projeto.git
 ```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+2. Instale as dependências:
 ```
+npm install
+``` 
+3. Crie o banco de dados MySQL:
+```
+CREATE DATABASE `cidade_alta_db`;
+CREATE USER 'ca_db'@'localhost' IDENTIFIED BY '123';
+GRANT ALL PRIVILEGES ON `cidade_alta_db`.* TO 'ca_db'@'localhost';
+FLUSH PRIVILEGES;
+```
+4. Rode o script MySQL para adicionar os emblemas:
+```
+INSERT INTO badges 
+	(id, slug, name, image) 
+VALUES 
+	(1, 'cda', 'Cidade Alta', 'https://cidadealtarp.com/imagens/challenge/cidade-alta.png'),
+	(2, 'cda-valley', 'Cidade Alta Valley', 'https://cidadealtarp.com/imagens/challenge/cidade-alta-valley.png'),
+	(3, 'policia', 'Policia do Cidade Alta', 'https://cidadealtarp.com/imagens/challenge/policia.png'),
+	(4, 'hospital', 'Hospital do Cidade Alta', 'https://cidadealtarp.com/imagens/challenge/hospital.png'),
+	(5, 'mecanica', 'Mecânica do Cidade Alta', 'https://cidadealtarp.com/imagens/challenge/mecanica.png'),
+	(6, 'taxi', 'Taxi do Cidade Alta', 'https://cidadealtarp.com/imagens/challenge/taxi.png'),
+	(7, 'curuja', 'Coruja', 'https://cidadealtarp.com/imagens/challenge/coruja.png'),
+	(8, 'hiena', 'Hiena', 'https://cidadealtarp.com/imagens/challenge/hiena.png'),
+	(9, 'gato', 'Gato', 'https://cidadealtarp.com/imagens/challenge/gato.png'),
+	(10, 'urso', 'Urso', 'https://cidadealtarp.com/imagens/challenge/urso.png')
+```
+5. Inicie o servidor:
+```
+npm run start:dev
+```
+### Uso
 
-## Support
+Acesse a documentação da API em http://localhost:3000/swagger#/ após rodar para obter detalhes sobre os endpoints disponíveis e como usá-los.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## Licença
 
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+Este projeto é licenciado sob a MIT License.
